@@ -44,14 +44,18 @@ public class UserService {
 //		Check to see if the given is in the database
 		Optional<User> optionalUser = userRepo.findByEmail(logUser.getLogEmail());
 		if(!optionalUser.isPresent()) { // If user can't be found
+							//  "logEmail" <---- need to be the same as 'path' in .jsp file and variable name in model class
 			result.rejectValue("logEmail", "Matchs", "Invalid login credentials");
+			//  				"logPassword" <---- need to be the same as 'path' in .jsp file and variable name in model class
 			result.rejectValue("logPassword", "Matchs", "Invalid login credentials");
 			return null; // Stop from checking password
 		}
 		User thisUser = optionalUser.get(); // Return actual user who has the matched  email
 
 		if (!BCrypt.checkpw(logUser.getLogPassword(), thisUser.getPassword())) { // Password don't match
+							//  "logEmail" <---- need to be the same as 'path' in .jsp file and variable name in model class
 			result.rejectValue("logEmail", "Matchs", "Invalid login credentials");
+							//  "logPassword" <---- need to be the same as 'path' in .jsp file and variable name in model class
 			result.rejectValue("logPassword", "Matchs", "Invalid login credentials");
 			return null; // Can't return the user - Invalid log in
 		}
